@@ -2,10 +2,10 @@ package tree
 
 import org.scalatest._
 
-class TreeFlipTest extends FunSuite with Matchers with
+class TreeTest extends FunSuite with Matchers with
   OptionValues with Inside with Inspectors {
 
-  import TreeFlip._
+  import Tree._
 
   test("array of ints to tree node") {
     assert(parseRow(Array(0, 0, 1, 0, 0)) === Seq((2, Node(1))))
@@ -37,5 +37,13 @@ class TreeFlipTest extends FunSuite with Matchers with
     assert(root.left.flatMap(_.right.map(_.id)) === Some(5))
     assert(root.left.flatMap(_.left.flatMap(_.right.map(_.id))) === Some(6))
     assert(root.left.flatMap(_.right.flatMap(_.right.map(_.id))) === Some(7))
+  }
+
+  import TreeFlip._
+
+  test("print tree") {
+    val root = buildTree(parseInput(input))
+    val ((height, width), elements) = generateElements(root)
+    printElements(elements, height, width)
   }
 }
