@@ -1,6 +1,9 @@
 package tree
 
+import java.io.InputStreamReader
+
 import scala.io.Source
+import scala.util.Try
 
 object App {
 
@@ -8,23 +11,33 @@ object App {
   import Printer._
 
   def main(args: Array[String]): Unit = {
-    val input = validateInput(readInput())
-    if (input.isEmpty) {
-      println("No valid input. please try again.")
-    } else {
-      println("Here is what we have from input:")
-      input.foreach(println)
 
-      val root = buildTree(parseInput(input))
-      var ok = true
-      while (ok) {
-        getUserAction() match {
-          case Print => printTree(root)
-          case Flip => printTree(flipTree(root))
-          case Exit => ok = false
+    import scala.sys.process._
+
+    if (args.isEmpty) {
+      println("please specify the file to load")
+    } else {
+      val name = args.head
+      val bs = Source.fromFile(name)
+      val lines = bs.getLines().toSeq
+      val input = validateInput(lines)
+      if (input.isEmpty) {
+        println("No valid input. please try again.")
+      } else {
+        println("Here is what we have from input:")
+        input.foreach(println)
+
+        val root = buildTree(parseInput(input))
+        var ok = true
+        while (ok) {
+          getUserAction() match {
+            case Print => printTree(root)
+            case Flip => printTree(flipTree(root))
+            case Exit => ok = false
+          }
         }
       }
-
+      bs.close()
     }
   }
 
@@ -35,18 +48,7 @@ object App {
 
   import scala.io.StdIn
 
-  def readInput(): Seq[String] = {
-    var ok = true
-    var seq = Seq.empty[String]
-    while (ok) {
-      val ln = StdIn.readLine
-      ok = ln != null && ln.nonEmpty
-      if (ok) {
-        seq :+= ln
-      }
-    }
-    seq
-  }
+  def readInput(): Seq[String] = Source.stdin.getLines().toSeq
 
   def getUserAction(): Action = {
     println(
