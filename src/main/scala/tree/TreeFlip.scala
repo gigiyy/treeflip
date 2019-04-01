@@ -1,14 +1,8 @@
 package tree
 
-import apple.laf.JRSUIConstants.Widget
 import tree.Tree.Node
 
 object TreeFlip {
-
-  def main(args: Array[String]): Unit = {
-
-  }
-
   def printElements(elements: Seq[Element], height: Int, width: Int): Unit = {
     for (row <- 0 until height) {
       val array = Array.fill(width)(' ')

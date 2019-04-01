@@ -46,4 +46,10 @@ class TreeTest extends FunSuite with Matchers with
     val ((height, width), elements) = generateElements(root)
     printElements(elements, height, width)
   }
+
+  test("flip and print") {
+    val root = buildTree(parseInput(input))
+    val ((height, width), elements) = generateElements(flipTree(root))
+    printElements(elements, height, width)
+  }
 }

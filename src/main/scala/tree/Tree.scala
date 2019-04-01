@@ -22,6 +22,21 @@ object Tree {
     implicit val order: Ordering[Pos] = Ordering.by(p => (p.row, p.col))
   }
 
+  def flipTree(root: Node): Node = {
+    def flip(node: Option[Node]): Option[Node] = {
+      node match {
+        case None => None
+        case Some(nd) =>
+          val next = Node(nd.id)
+          next.left = flip(nd.right)
+          next.right = flip(nd.left)
+          Some(next)
+      }
+    }
+
+    flip(Some(root)).get
+  }
+
   def buildTree(map: Map[Pos, Node]): Node = {
     val ps = map.keySet
     val rootRow = ps.filter(_.row == 0)
