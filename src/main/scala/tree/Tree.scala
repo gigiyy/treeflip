@@ -78,9 +78,7 @@ object Tree {
       content.split(",").map(_.trim.toInt)
     }.zipWithIndex.flatMap {
       case (ints, row) =>
-        parseRow(ints).map(p =>
-          (Pos(row, p._1), p._2)
-        )
+        parseRow(ints).map(p => (Pos(row, p._1), p._2))
     }.toMap
 
   def parseRow(ints: Array[Int]): Seq[(Int, Node)] =

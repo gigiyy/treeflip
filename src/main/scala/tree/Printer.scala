@@ -3,7 +3,7 @@ package tree
 import tree.Tree.Node
 
 object Printer {
-  def elementsToString(elements: Seq[Element], height: Int, width: Int): Seq[String] = {
+  def elementsToStringSeq(elements: Seq[Element], height: Int, width: Int): Seq[String] = {
     for (row <- 0 until height) yield {
       val array = Array.fill(width)(' ')
       elements.filter(_.pos.row == row).foreach { e =>

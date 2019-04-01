@@ -44,12 +44,12 @@ class TreeTest extends FunSuite with Matchers with
   test("print tree") {
     val root = buildTree(parseInput(input))
     val ((height, width), elements) = generateElements(root)
-    elementsToString(elements, height, width).foreach(println)
+    elementsToStringSeq(elements, height, width).foreach(println)
   }
 
   test("flip and print") {
     val root = buildTree(parseInput(input))
     val ((height, width), elements) = generateElements(flipTree(root))
-    elementsToString(elements, height, width).foreach(println)
+    elementsToStringSeq(elements, height, width).foreach(println)
   }
 }
