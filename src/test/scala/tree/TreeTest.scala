@@ -39,17 +39,17 @@ class TreeTest extends FunSuite with Matchers with
     assert(root.left.flatMap(_.right.flatMap(_.right.map(_.id))) === Some(7))
   }
 
-  import TreeFlip._
+  import Printer._
 
   test("print tree") {
     val root = buildTree(parseInput(input))
     val ((height, width), elements) = generateElements(root)
-    printElements(elements, height, width)
+    elementsToString(elements, height, width).foreach(println)
   }
 
   test("flip and print") {
     val root = buildTree(parseInput(input))
     val ((height, width), elements) = generateElements(flipTree(root))
-    printElements(elements, height, width)
+    elementsToString(elements, height, width).foreach(println)
   }
 }

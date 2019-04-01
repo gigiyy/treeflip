@@ -53,8 +53,6 @@ object Tree {
     while (cur.nonEmpty) {
       val parentPos = cur.dequeue
 
-      println(s"working on $parentPos")
-
       val parent = map(parentPos)
       val childrenPos = next.intersect(parentPos.possibleChildren).filter(!seem.contains(_))
       childrenPos.foreach { p =>
@@ -71,8 +69,11 @@ object Tree {
     root
   }
 
+  def validateInput(input: Seq[String]): Seq[String] =
+    input.filter(s => s.startsWith("[[") && s.endsWith("]]") && s.length > 4)
+
   def parseInput(input: Seq[String]): Map[Pos, Node] =
-    input.filter(s => s.startsWith("[[") && s.endsWith("]]")).map { str =>
+    input.map { str =>
       val content = str.slice(2, str.length - 2)
       content.split(",").map(_.trim.toInt)
     }.zipWithIndex.flatMap {
